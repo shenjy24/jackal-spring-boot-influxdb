@@ -44,10 +44,10 @@ class ApplicationTests {
     @Test
     public void testWriteObjects() {
         Random random = new Random();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 2; i++) {
             HostCpuUsage hostCpuUsage = new HostCpuUsage();
-            hostCpuUsage.setHostName("host1");
-            hostCpuUsage.setCpuCore("core1");
+            hostCpuUsage.setHostName("host3");
+            hostCpuUsage.setCpuCore("core3");
             hostCpuUsage.setCpuUsage(random.nextDouble());
             hostCpuUsage.setCpuIdle(random.nextDouble());
             influxdbService.write(hostCpuUsage);

@@ -72,7 +72,7 @@ public class InfluxdbService {
 
         Flux flux = Flux
                 .from(influxdbConfig.getBucket())
-                .range(-10L, ChronoUnit.HOURS)
+                .range(-5L, ChronoUnit.MINUTES)
                 .filter(restrictions)
                 .pivot()
                     .withRowKey(new String[]{"_time"})
