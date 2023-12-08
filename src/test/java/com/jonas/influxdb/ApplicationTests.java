@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @SpringBootTest
 class ApplicationTests {
@@ -37,5 +39,31 @@ class ApplicationTests {
         hostCpuUsage.setCpuUsage(0.33);
         hostCpuUsage.setCpuIdle(0.55);
         influxdbService.write(hostCpuUsage);
+    }
+
+    @Test
+    public void testWriteObjects() {
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            HostCpuUsage hostCpuUsage = new HostCpuUsage();
+            hostCpuUsage.setHostName("host1");
+            hostCpuUsage.setCpuCore("core1");
+            hostCpuUsage.setCpuUsage(random.nextDouble());
+            hostCpuUsage.setCpuIdle(random.nextDouble());
+            influxdbService.write(hostCpuUsage);
+
+            long randomNumber = random.nextInt((5000 + 1) - 500) + 500;
+            try {
+                Thread.sleep(randomNumber);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Test
+    void testQuery() {
+        List<HostCpuUsage> cpuUsages = influxdbService.query();
+        System.out.println(cpuUsages);
     }
 }

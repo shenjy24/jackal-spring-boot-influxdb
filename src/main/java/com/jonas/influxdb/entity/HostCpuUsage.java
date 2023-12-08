@@ -2,7 +2,9 @@ package com.jonas.influxdb.entity;
 
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
 
@@ -12,7 +14,9 @@ import java.time.Instant;
  * @author shenjy
  * @time 2023/12/7 18:05
  */
-@Data
+@Getter
+@Setter
+@ToString
 @Measurement(name = "host_cpu_usage")
 public class HostCpuUsage {
     // tags
@@ -23,9 +27,9 @@ public class HostCpuUsage {
 
     // fields
     @Column
-    private Double cpuUsage;
+    private double cpuUsage;
     @Column
-    private Double cpuIdle;
+    private double cpuIdle;
 
     @Column(timestamp = true)
     private Instant time;
